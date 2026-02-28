@@ -14,25 +14,17 @@ Claude Code のスキルを dotfiles として管理するリポジトリ。
 │       └── skills/             ← デプロイされるポータブルスキル群
 ├── .claude/                    ← このリポジトリ自体の開発設定
 │   ├── settings.json           ← 共有設定（Agent Teams 有効化など）
-│   ├── settings.local.json     ← ローカル設定（パーミッション）
-│   └── skills/                 ← このリポジトリ専用スキル
-│       └── skill-creator-dotfiles/
+│   └── settings.local.json     ← ローカル設定（パーミッション）
 ├── CLAUDE.md                   ← このファイル
 ├── deploy.sh                   ← stow デプロイスクリプト
 └── docs/                       ← 仕様書・ドラフト・参考スキルサンプル
 ```
 
-## 二層のスキル配置
+## スキル配置
 
-- `claude/.claude/skills/` — **ポータブルスキル（成果物）**。`stow -t ~ claude` で `~/.claude/skills/` にシンボリックリンクされ、全プロジェクトで使える
-- `.claude/skills/` — **本リポジトリ専用スキル**。このリポジトリ内でのみ有効
+`claude/.claude/skills/` — **ポータブルスキル（成果物）**。`stow -t ~ claude` で `~/.claude/skills/` にシンボリックリンクされ、全プロジェクトで使える。
 
-### skill-creator の使い分け
-
-| スキル | 用途 | 作成先 |
-|---|---|---|
-| `skill-creator`（デプロイ済） | 任意プロジェクトでプロジェクト固有スキルを作る | `.claude/skills/` |
-| `skill-creator-dotfiles`（本リポジトリ専用） | ポータブルスキルをこのリポジトリに追加する | `claude/.claude/skills/` |
+新規スキル作成には公式プラグインの `skill-creator` を使用する。このリポジトリでは作成先を `claude/.claude/skills/` に指定すること。
 
 ## デプロイ
 
@@ -51,8 +43,6 @@ Claude Code のスキルを dotfiles として管理するリポジトリ。
 4. このリポジトリに戻ってフィードバックを反映
 
 ## スキル作成のルール
-
-`claude/.claude/skills/skill-creator/references/skill-standard.md` にスキルの構造・命名・記述ルールが定義されている。新規スキル作成時は必ず参照すること。
 
 ポータブルスキルの制約:
 
