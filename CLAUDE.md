@@ -2,16 +2,20 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Claude Code のスキルを dotfiles として管理するリポジトリ。
-`stow` でホームディレクトリにデプロイし、どの環境でも同じスキルセットを使えるようにする。
+Claude Code のスキルや各種設定を dotfiles として管理するリポジトリ。
+`stow` でホームディレクトリにデプロイし、どの環境でも同じ設定を使えるようにする。
 
 ## ディレクトリ構造
 
 ```
 ~/dotfiles/
-├── claude/                     ← stow パッケージ（デプロイ対象）
+├── claude/                     ← stow パッケージ（Claude Code スキル）
 │   └── .claude/
 │       └── skills/             ← デプロイされるポータブルスキル群
+├── tmux/                       ← stow パッケージ（tmux 設定）
+│   ├── .tmux.conf              ← tmux 本体設定
+│   └── .config/tmux/
+│       └── init-session.sh     ← セッション自動構成スクリプト
 ├── .claude/                    ← このリポジトリ自体の開発設定
 │   ├── settings.json           ← 共有設定（Agent Teams 有効化など）
 │   └── settings.local.json     ← ローカル設定（パーミッション）
@@ -30,7 +34,7 @@ Claude Code のスキルを dotfiles として管理するリポジトリ。
 
 ```bash
 ./deploy.sh
-# または手動: stow -t ~ claude
+# または手動: stow -t ~ claude tmux
 ```
 
 初回実行でシンボリックリンクが作成される。以降はリポジトリ内の変更が即反映される。

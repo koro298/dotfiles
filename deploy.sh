@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-STOW_PACKAGE="claude"
+STOW_PACKAGES=(claude tmux)
 
 cd "$SCRIPT_DIR"
 
@@ -15,6 +15,8 @@ if ! command -v stow &>/dev/null; then
 fi
 
 # デプロイ（冪等: 既存のシンボリックリンクがあっても安全に再実行可能）
-stow -v -t "$HOME" --restow "$STOW_PACKAGE"
+for pkg in "${STOW_PACKAGES[@]}"; do
+  stow -v -t "$HOME" --restow "$pkg"
+done
 
-echo "デプロイ完了: ~/.claude/skills/ にシンボリックリンクを作成しました。"
+echo "デプロイ完了: 以下のパッケージをデプロイしました: ${STOW_PACKAGES[*]}"
